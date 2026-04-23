@@ -1,6 +1,3 @@
-
-Copy
-
 """
 Nordic Deal Flow Agent v2
 =========================
