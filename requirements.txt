@@ -1,0 +1,6 @@
+feedparser>=6.0
+requests>=2.31
+anthropic>=0.40
+resend>=2.0
+schedule>=1.2
+beautifulsoup4>=4.12

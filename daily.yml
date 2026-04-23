@@ -1,0 +1,34 @@
+name: Nordic Deal Flow – Daglig e-post
+
+on:
+  schedule:
+    # 07:00 UTC = 09:00 norsk tid (CEST)
+    # 08:00 UTC = 09:00 norsk tid (CET, vinterstid)
+    - cron: '0 7 * * *'
+
+  # Manuell kjøring for testing
+  workflow_dispatch:
+
+jobs:
+  deal-flow:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout kode
+        uses: actions/checkout@v4
+
+      - name: Sett opp Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Installer avhengigheter
+        run: pip install -r requirements.txt
+
+      - name: Kjør deal flow agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+        run: python nordic_deal_flow.py
